@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Booth</title>
+    <link rel="stylesheet" href="font.css">
+
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background-color: #f5f5f5; */
+            background-image: url(bgs/bg.jpg);
+            background-repeat: no-repeat; 
+            background-size:cover; 
+            width: 100%; 
+          
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+         
+            overflow-x: hidden;
+            padding-bottom: 15px; 
+        }
+
+        .container {
+            
+
+            display: flex;
+            justify-content: center;
+            align-items: start;
+          
+            gap: 10px;
+            width: 100%;
+            
+            padding: 10px;
+        }
+
+        #output_wrapper {
+            /* max-width: 400px;  */
+         
+            padding-bottom: 15px; 
+            transform:scale(0.60);
+         
+            transform-origin: top right; /* Ensures scaling starts from the top-left corner */
+
+        }   
+        
+        #output_wrapper canvas { 
+            /* border: 1px solid red; */
+          
+           
+            border: 3px solid rgb(0,0,0,0.3);
+        }
+        #video_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #collage { 
+            display: flex;
+            justify-content: center;
+            /* grid-template-columns: repeat(1, 1fr); */
+            gap: 5px;
+            width: 100%;
+            /* max-width: 400px; */
+            margin: 10px auto;
+        }
+
+        #collage img {
+            width: 150px;
+            height: 100px;
+            /* border-radius: 15px; */
+            object-fit: cover;
+        }
+        video {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            background-color: #e0e0e0;
+        }
+
+
+      #cp { 
+        display: flex; 
+        flex-direction: column;
+        border: 1px solid rgb(0,0,0,0.3);
+          max-height: 500px;
+      }
+
+        #video_wrapper {
+            position: relative;
+        }
+
+        #timer {
+            position: absolute;
+            width: 25px; 
+            height: 25px;
+            z-index: 5;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 35px;
+            font-weight: bold;
+            color: #ff4757;
+            background-color: white; 
+            opacity: 40%; 
+            padding: 25px;
+            margin: auto 0; 
+            border-radius: 50%; 
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+
+            display: none;
+        }
+
+        button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: white;
+            background-color: #ff6b81;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff4757;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+
+        
+        .wrapper { 
+            width: 100%; 
+    
+            /* border: 1px solid red;  */
+            
+            display: none; 
+         
+            justify-content: center;
+            /* align-items: center; */
+            /* border: 1px solid red; */
+            gap: 15px; 
+        }
+
+        
+        canvas {
+            display: grid;
+            width: 100%;
+            max-width: 400px;
+            
+            /* border-radius: 15px; */
+            background-color: #e0e0e0;
+        }
+
+   
+
+        #color_picker {
+            display: none;
+
+            
+        
+            background-color: white;
+            
+
+        }
+
+
+
+        .colors {
+            display: grid;
+            grid-template-columns: repeat(5, 80px);
+            
+            flex-wrap: wrap;
+            justify-content: center;
+            border-bottom: 1px solid rgb(0,0,0,0.3);
+            
+        }
+
+        #color_picker_item { 
+            border-right: 1px solid rgb(0,0,0,0.3);
+        }
+
+    
+
+        .actions { 
+            display: flex;
+            margin:auto 0;
+            justify-content: center;
+            height: 10%; 
+            width: 100%; 
+        }
+
+        .actions button { 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            height: 100%; 
+            margin:auto 1rem;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .item button:hover {
+            transform: scale(1.1);
+        }
+
+        .btn_img {
+            width: 60px;
+            height: 60px;
+            border: none;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn_img:hover {
+            transform: scale(1.1);
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        #capture, #download ,   #color_picker button {
+            background-color: #ff6b81;
+        }
+
+        #capture:hover, #download:hover, #color_picker button:hover {
+            background-color: #ff4757;
+        }
+
+        .header { 
+            width: 100%;
+            height: 10%; 
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;  
+      
+
+
+            
+        }
+
+        .header a { 
+            height: 80%; 
+            background-color: rgb(53, 180, 253);
+            color: white; 
+            border-radius: 55px;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 3rem; 
+            transition: 300ms ease-in-out;
+            text-decoration: none;
+            
+        }
+
+        .header a:hover { 
+            background: rgb(34, 151, 219);
+            transform: scale(1.04);
+        }
+
+      
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="home.html"> ↩ Select layout </a>
+    </div>
+    <div class="container">
+     
+            <div id="video_container">
+                <div id="video_wrapper">
+                    <video id="video" autoplay></video>
+                    <div id="timer"></div>
+                </div>
+                <button id="capture">Take an Image 📷</button>
+
+                <div>
+                    <div class="collage" id="collage"></div>
+                    <button id="download" style="display: none;">Download Collage</button>
+                </div>
+
+            </div>
+      
+      
+
+        <div class="wrapper">
+            <div id="output_wrapper"></div>
+
+            <div id="cp">
+
+                <div id="color_picker">
+    
+                    <div id="color_picker_item">
+                        <h1>Choose Background Color</h1>
+                        <div class="colors">
+                            <div class="item">
+                                <button class="item_btn #FFB6C1" onclick="changeColor(this)"></button>
+                            </div>
+                            <script>
+                                const colors = [
+                                    "#D3D3D3", "#ADD8E6", "#808080", "#FFB6C1", "#FFD700", 
+                                    "#90EE90", "#20B2AA", "#FF6347", "#6A5ACD", "#FF69B4", 
+                                    "#8A2BE2", "#00CED1", "#FFA07A", "#B0E0E6", "#32CD32", 
+                                    "#4682B4", "#FF4500", "#DA70D6", "#A52A2A", "#5F9EA0"
+                                ];
+                                
+                                colors.forEach(color => {
+                                    document.write(`
+                                        <div class="item">
+                                            <button class="item_btn ${color}" style="background-color: ${color};" onclick="changeColor(this)"></button>
+                                        </div>
+                                    `);
+                                });
+                            </script>
+                        </div>
+        
+                    </div>
+    
+                    <div>
+                        <h1>Choose Background</h1>
+                        <div class="colors">
+                            <div class="item">
+                                <button class="item_btn btn_img" onclick="changeBackground('bgs/coquette.jpg')" style="background-image: url('bgs/coquette.jpg');"></button>
+                            </div>
+                            <div class="item">
+                                <button class="item_btn btn_img" onclick="changeBackground('bgs/coq2.jpg')" style="background-image: url('bgs/coq2.jpg');"></button>
+                            </div>
+                            <div class="item">
+                                <button class="item_btn btn_img" onclick="changeBackground('bgs/cq3.jpg')" style="background-image: url('bgs/cq3.jpg');"></button>
+                            </div>
+                            <script>
+                                for (let i = 1; i <= 20; i++) {
+                                    document.write(`
+                                        <div class="item">
+                                            <button class="item_btn btn_img" onclick="changeBackground('bgs/${i}.jpg')" style="background-image: url('bgs/${i}.jpg');"></button>
+                                        </div>
+                                    `);
+                                }
+                            </script>
+                        </div>
+    
+                    </div>
+                </div> 
+                  
+                <div class="actions">
+    
+                    <button onclick="downloadCanvas(event, 'your_collage.png', 15);"> 📥 Download</button>
+                    <button onclick="retake()"> ↻ Retake</button>
+                </div>
+            </div>
+
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script src="scripts/preload.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+</html>
