@@ -29,7 +29,7 @@
         }
 
      
-        video, canvas {
+        video {
             display: block;
             margin: 10px auto;
             width: 100%;
@@ -37,6 +37,16 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
+
+          canvas { 
+            display: block;
+            margin: 10px auto;
+            max-width: 400px;
+            height: 600px; 
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        
         .collage {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -224,7 +234,7 @@
 
 
 
-            <button onclick="downloadCanvas('your_collage.png', 3);
+            <button onclick="downloadCanvas('your_collage.png', 15);
             ">Download</button>
 
             <button onclick="retake()">Retake</button>
