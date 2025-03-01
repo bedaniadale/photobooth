@@ -14,45 +14,45 @@
             padding: 0;
             /* background-color: #f5f5f5; */
             background-image: url(bgs/bg.jpg);
-            background-repeat: no-repeat; 
-            background-size:cover; 
-            width: 100%; 
-          
+            background-repeat: no-repeat;
+            background-size:cover;
+            width: 100%;
+
             display: flex;
             flex-direction: column;
             align-items: center;
-         
+
             overflow-x: hidden;
-            padding-bottom: 15px; 
+            padding-bottom: 15px;
         }
 
         .container {
-            
+
 
             display: flex;
             justify-content: center;
             align-items: start;
-          
+
             gap: 10px;
             width: 100%;
-            
+
             padding: 10px;
         }
 
         #output_wrapper {
             /* max-width: 400px;  */
-         
-            padding-bottom: 15px; 
+
+            padding-bottom: 15px;
             transform:scale(0.60);
-         
+
             transform-origin: top right; /* Ensures scaling starts from the top-left corner */
 
-        }   
-        
-        #output_wrapper canvas { 
+        }
+
+        #output_wrapper canvas {
             /* border: 1px solid red; */
-          
-           
+
+
             border: 3px solid rgb(0,0,0,0.3);
         }
         #video_container {
@@ -62,7 +62,7 @@
             gap: 20px;
         }
 
-        #collage { 
+        #collage {
             display: flex;
             justify-content: center;
             /* grid-template-columns: repeat(1, 1fr); */
@@ -87,8 +87,8 @@
         }
 
 
-      #cp { 
-        display: flex; 
+      #cp {
+        display: flex;
         flex-direction: column;
         border: 1px solid rgb(0,0,0,0.3);
           max-height: 500px;
@@ -100,7 +100,7 @@
 
         #timer {
             position: absolute;
-            width: 25px; 
+            width: 25px;
             height: 25px;
             z-index: 5;
             top: 50%;
@@ -109,11 +109,11 @@
             font-size: 35px;
             font-weight: bold;
             color: #ff4757;
-            background-color: white; 
-            opacity: 40%; 
+            background-color: white;
+            opacity: 40%;
             padding: 25px;
-            margin: auto 0; 
-            border-radius: 50%; 
+            margin: auto 0;
+            border-radius: 50%;
             text-align: center;
             align-items: center;
             justify-content: center;
@@ -145,39 +145,39 @@
         }
 
 
-        
-        .wrapper { 
-            width: 100%; 
-    
+
+        .wrapper {
+            width: 100%;
+
             /* border: 1px solid red;  */
-            
-            display: none; 
-         
+
+            display: none;
+
             justify-content: center;
             /* align-items: center; */
             /* border: 1px solid red; */
-            gap: 15px; 
+            gap: 15px;
         }
 
-        
+
         canvas {
             display: grid;
             width: 100%;
             max-width: 400px;
-            
+
             /* border-radius: 15px; */
             background-color: #e0e0e0;
         }
 
-   
+
 
         #color_picker {
             display: none;
 
-            
-        
+
+
             background-color: white;
-            
+
 
         }
 
@@ -186,32 +186,32 @@
         .colors {
             display: grid;
             grid-template-columns: repeat(5, 80px);
-            
+
             flex-wrap: wrap;
             justify-content: center;
             border-bottom: 1px solid rgb(0,0,0,0.3);
-            
+
         }
 
-        #color_picker_item { 
+        #color_picker_item {
             border-right: 1px solid rgb(0,0,0,0.3);
         }
 
-    
 
-        .actions { 
+
+        .actions {
             display: flex;
             margin:auto 0;
             justify-content: center;
-            height: 10%; 
-            width: 100%; 
+            height: 10%;
+            width: 100%;
         }
 
-        .actions button { 
-            display: flex; 
+        .actions button {
+            display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%; 
+            height: 100%;
             margin:auto 1rem;
         }
         .item {
@@ -260,48 +260,48 @@
             background-color: #ff4757;
         }
 
-        .header { 
+        .header {
             width: 100%;
-            height: 10%; 
+            height: 10%;
             display:flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 0;  
-      
+            padding: 10px 0;
 
 
-            
+
+
         }
 
-        .header a { 
-            height: 80%; 
+        .header a {
+            height: 80%;
             background-color: rgb(53, 180, 253);
-            color: white; 
+            color: white;
             border-radius: 55px;
-            display: flex; 
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem 3rem; 
+            padding: 0.5rem 3rem;
             transition: 300ms ease-in-out;
             text-decoration: none;
-            
+
         }
 
-        .header a:hover { 
+        .header a:hover {
             background: rgb(34, 151, 219);
             transform: scale(1.04);
         }
 
-      
+
 
     </style>
 </head>
 <body>
     <div class="header">
-        <a href="home.html"> ↩ Select layout </a>
+        <a href="index.html"> ↩ Select layout </a>
     </div>
     <div class="container">
-     
+
             <div id="video_container">
                 <div id="video_wrapper">
                     <video id="video" autoplay></video>
@@ -315,8 +315,8 @@
                 </div>
 
             </div>
-      
-      
+
+
 
         <div class="wrapper">
             <div id="output_wrapper"></div>
@@ -324,7 +324,7 @@
             <div id="cp">
 
                 <div id="color_picker">
-    
+
                     <div id="color_picker_item">
                         <h1>Choose Background Color</h1>
                         <div class="colors">
@@ -333,12 +333,12 @@
                             </div>
                             <script>
                                 const colors = [
-                                    "#D3D3D3", "#ADD8E6", "#808080", "#FFB6C1", "#FFD700", 
-                                    "#90EE90", "#20B2AA", "#FF6347", "#6A5ACD", "#FF69B4", 
-                                    "#8A2BE2", "#00CED1", "#FFA07A", "#B0E0E6", "#32CD32", 
+                                    "#D3D3D3", "#ADD8E6", "#808080", "#FFB6C1", "#FFD700",
+                                    "#90EE90", "#20B2AA", "#FF6347", "#6A5ACD", "#FF69B4",
+                                    "#8A2BE2", "#00CED1", "#FFA07A", "#B0E0E6", "#32CD32",
                                     "#4682B4", "#FF4500", "#DA70D6", "#A52A2A", "#5F9EA0"
                                 ];
-                                
+
                                 colors.forEach(color => {
                                     document.write(`
                                         <div class="item">
@@ -348,9 +348,9 @@
                                 });
                             </script>
                         </div>
-        
+
                     </div>
-    
+
                     <div>
                         <h1>Choose Background</h1>
                         <div class="colors">
@@ -373,21 +373,21 @@
                                 }
                             </script>
                         </div>
-    
+
                     </div>
-                </div> 
-                  
+                </div>
+
                 <div class="actions">
-    
+
                     <button onclick="downloadCanvas(event, 'your_collage.png', 15);"> 📥 Download</button>
                     <button onclick="retake()"> ↻ Retake</button>
                 </div>
             </div>
 
             </div>
-            
+
         </div>
-        
+
     </div>
 
     <script src="scripts/preload.js"></script>
