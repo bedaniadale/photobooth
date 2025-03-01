@@ -22,7 +22,7 @@ function setLayout(item) {
     
     localStorage.setItem('isSet', true); 
     localStorage.setItem('layout', JSON.stringify(layout));
-    window.location.href = '/photo.html';
+    window.location.href = '/photobooth/photo.html';
     
    
 }
